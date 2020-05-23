@@ -12,8 +12,6 @@ function sortCatalogue(input){
         }
         console.log(`  ${productAndPrice[0]}: ${productAndPrice[1]}`);
     });
-
-
 }
 
 sortCatalogue(['Appricot : 20.4',
