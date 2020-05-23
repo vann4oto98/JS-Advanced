@@ -17,7 +17,7 @@ function solve(input) {
     function sortSystemComparator(sysA, sysB, systems) {
         let aComponents = systems.get(sysA).size;
         let bComponents = systems.get(sysB).size;
-        
+
         if (aComponents > bComponents) return -1;
         if (aComponents < bComponents) return 1;
 
@@ -34,7 +34,7 @@ function solve(input) {
 
         for (let component of components) {
             console.log(`|||${component}`);
-            for (let subComponent of systems.get(system).get(component)){
+            for (let subComponent of systems.get(system).get(component)) {
                 console.log(`||||||${subComponent}`);
             }
         }
