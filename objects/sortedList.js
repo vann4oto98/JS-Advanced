@@ -11,7 +11,7 @@ class List{
     }
 
     remove(index){
-        if(index > this.size || index < 0){
+        if(index >= this.size || index < 0){
             throw 'Index out of bounds';
         }
         this.size--;
@@ -19,11 +19,11 @@ class List{
     }
 
     get(index){
-        if(index > this.size || index < 0){
+        if(index >= this.size || index < 0){
             throw 'Index out of bounds';
         }
         return this.numbers[index];
     }
 }
 let list = new List();
-console.log(list.remove(1)); 
+console.log(list.get(0)); 
