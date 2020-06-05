@@ -8,7 +8,7 @@ function solve() {
   buyBtn.addEventListener("click", buy);
 
   function buy(){
-    let stuff = document.querySelectorAll("input[type=checkbox]:checked");
+    let stuff = Array.from(document.querySelectorAll("input[type=checkbox]:checked"));
     let boughtFurniture = [];
     let totalPrice = 0;
     let averageDecoration = 0;
