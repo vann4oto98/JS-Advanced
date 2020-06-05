@@ -20,17 +20,17 @@ function solve() {
       averageDecoration += (Number)(fullItem[2].textContent);
     });
 
-    let output = "Bought furnure: " + boughtFurniture.join(", ")
-                 + "\n" + "Total price: "+ totalPrice  + "\n"
+    let output = "Bought furniture: " + boughtFurniture.join(", ")
+                 + "\n" + "Total price: "+ totalPrice.toFixed(2)  + "\n"
                  + "Average decoration factor: " + averageDecoration/stuff.length;
     
-    document.querySelector("textarea:disabled").textContent = output;
+    document.querySelector("textarea:disabled").value = output;
     console.log(document.querySelectorAll("tbody tr").length);             
 
   };
 
   function generate() {
-    let input  = document.querySelector("textarea").textContent;
+    let input  = document.querySelector("textarea").value;
     let objects = JSON.parse(input);  
     objects.forEach(element => {
 
@@ -77,6 +77,3 @@ function solve() {
 
   };
 }
-
-[{"name": "Sofa", "img": 
-"https://res.cloudinary.com/maisonsdumonde/image/upload/q_auto,f_auto/w_200/img/grey-3-seater-sofa-bed-200-13-0-175521_9.jpg", "price": 150, "decFactor": 1.2}]
