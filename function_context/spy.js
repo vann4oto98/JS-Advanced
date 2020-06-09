@@ -2,7 +2,7 @@
 //     constructor(obj, methodName){
 //         this.count = 0;
 //         const method = obj[methodName];
-//         if(!obj[methodName]){
+//         if(!method){
 //             throw new Error("No such method!");
 //         }
 //         obj[methodName] = function(...args){
@@ -14,7 +14,7 @@
 function createSpy(obj, methodName) {
     const spy = { count: 0 };
     const method = obj[methodName];
-    if (!obj[methodName]) {
+    if (!method) {
         throw new Error("No such method!");
     }
     obj[methodName] = function (...args) {
