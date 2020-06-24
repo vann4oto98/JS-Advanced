@@ -1,86 +1,80 @@
-function solve() {
-    let addButton = document.getElementById("add");
+function solve(){
+    const sections = document.querySelectorAll('section');
+    const openDiv = sections.item(1).querySelectorAll('div').item(1);
+    const progressDiv = sections.item(2).querySelectorAll('div').item(1);
+    const fineshedDiv = sections.item(3).querySelectorAll('div').item(1);
 
-    addButton.addEventListener("click", addTask);
+    const inputTask = document.querySelector('#task');
+    const inputDesc = document.querySelector('#description');
+    const inputDate = document.querySelector('#date');
 
-    function addTask(){
-        event.preventDefault();
-        let taskName = document.getElementById("task");
-        let description = document.getElementById("description");
-        let date = document.getElementById("date");
+    document.querySelector('#add').addEventListener("click", addEl);
 
-        if (valid(taskName, description, date)) {
-            let div = document.querySelectorAll("section")[1].children[1];
+    function addEl(e){
+        e.preventDefault();
+        const taskName = inputTask.value.trim();
+        const taskDesc = inputDesc.value.trim();
+        const taskDate = inputDate.value.trim();
 
-            let article = document.createElement("article");
-            let h3 = document.createElement("h3");
-            h3.textContent = taskName.value;
+        if (taskName.length > 0 && taskDesc.length > 0 && taskDate.length > 0) {
+           
+            const startBtn = el('button', 'Start', {className: 'green'});
+            const finishBtn = el('button', 'Finish', {className: 'orange'});
+            const deleteBtn = el('button', 'Delete', {className: 'red'});
+           
+            const btnDiv = el('div', [
+                startBtn, 
+                deleteBtn
+            ], {className: 'flex'});
 
-            let p = document.createElement("p");
-            p.textContent = description.value;
 
-            let pDate = document.createElement("p");
-            pDate.textContent = date.value;
+            const task = el('article', [
+                el('h3', taskName),
+                el('p', `Description: ${taskDesc}`),
+                el('p', `Due Date: ${taskDate}`),
+                btnDiv
+            ]);
 
-            let buttonDiv = document.createElement("div");
-            buttonDiv.classList.add("flex");
+            startBtn.addEventListener("click", () => {
+                progressDiv.appendChild(task);
+                startBtn.remove();
+                btnDiv.appendChild(finishBtn);
+            });
 
-            let startButton = document.createElement("button");
-            startButton.classList.add("green");
-            startButton.textContent = "Start";
-            startButton.addEventListener("click", startTask);
-    
-            let deleteButton = document.createElement("button");
-            deleteButton.classList.add("red");
-            deleteButton.textContent = "Delete";
-            deleteButton.addEventListener("click", deleteTask);
+            finishBtn.addEventListener("click", () => {
+                fineshedDiv.appendChild(task);
+                btnDiv.remove();
+            });
 
-            buttonDiv.appendChild(startButton);
-            buttonDiv.appendChild(deleteButton);
-            article.appendChild(h3);
-            article.appendChild(p);
-            article.appendChild(pDate);
-            article.appendChild(buttonDiv);
+            deleteBtn.addEventListener("click", () => {
+                task.remove();
+            })
 
-            div.appendChild(article);
+            openDiv.appendChild(task);
         }
 
-        taskName.value = "";
-        description.value = "";
-        date.value = "";
-    }
 
-    function valid(taskName, description, date){
-        if (taskName.value.length>0 && description.value.length >0 && date.value.length > 0){
-            return true;
-        } else{
-            return false;
-        }
-    }
 
-    function startTask(){
-        let div = document.querySelectorAll("section")[2].children[1];
-        let wholeArticle = event.target.parentNode.parentNode;
-        wholeArticle.querySelector("button").remove();
+        function el(type, content, attributes){
+            const result = document.createElement(type);
+            
+            if (attributes !== undefined) {
+                Object.assign(result, attributes);
+            }
         
-        let finishButton = document.createElement("button");
-        finishButton.classList.add("orange");
-        finishButton.textContent = "Finish";
-        finishButton.addEventListener("click", finishTask)
-        wholeArticle.querySelector(".flex").appendChild(finishButton);
-        div.appendChild(wholeArticle);
-    }
-
-    function finishTask(){
-        let div = document.querySelectorAll("section")[3].children[1];
-        let wholeArticle = event.target.parentNode.parentNode;
-        wholeArticle.querySelector("button").remove();
-        wholeArticle.querySelector("button").remove();
-
-        div.appendChild(wholeArticle);
-    }
-
-    function deleteTask(){
-        event.target.parentNode.parentNode.remove();
+            if (Array.isArray(content)){
+                content.forEach(append);
+            } else{
+                append(content);
+            }
+        
+            function append(node){
+                if (typeof node === 'string'){
+                    node = document.createTextNode(node);
+                } 
+                result.appendChild(node);
+            }
+            return result;
+        }
     }
 }
